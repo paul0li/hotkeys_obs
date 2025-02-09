@@ -12,7 +12,7 @@
         }
 
         .container {
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
         }
 
@@ -21,6 +21,18 @@
             border-radius: 8px;
             padding: 15px;
             margin-bottom: 20px;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .column {
+            background-color: #363636;
+            border-radius: 8px;
+            padding: 15px;
         }
 
         .section-title {
@@ -55,6 +67,8 @@
             border-radius: 4px;
             font-family: monospace;
             font-size: 14px;
+            min-width: 25px;
+            text-align: center;
         }
 
         .status {
@@ -64,42 +78,67 @@
             display: inline-flex;
             align-items: center;
             gap: 5px;
+            margin-top: 10px;
         }
 
         .status.active {
             background-color: #00ff95;
             color: black;
         }
-
-        .divider {
-            height: 1px;
-            background-color: #4a4a4a;
-            margin: 15px 0;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Sección de Escenas -->
-        <div class="section">
-            <div class="section-title">
-                🎬 Escenas
+        <!-- Grid Principal -->
+        <div class="main-grid">
+            <!-- Columna Izquierda: Escenas -->
+            <div class="column">
+                <div class="section-title">
+                    🎬 Escenas
+                </div>
+                <div class="hotkey-item">
+                    <div class="hotkey-name">🎥 PRESET</div>
+                    <div class="key">0</div>
+                </div>
+                <div class="hotkey-item">
+                    <div class="hotkey-name">📺 Su Sola</div>
+                    <div class="key">1</div>
+                </div>
+                <div class="hotkey-item">
+                    <div class="hotkey-name">📰 Noticia Grande</div>
+                    <div class="key">2</div>
+                </div>
+                <div class="hotkey-item">
+                    <div class="hotkey-name">📋 Noticia Chica</div>
+                    <div class="key">3</div>
+                </div>
             </div>
-            <div class="hotkey-item">
-                <div class="hotkey-name">🎥 PRESET</div>
-                <div class="key">NUM 0</div>
-            </div>
-            <div class="hotkey-item">
-                <div class="hotkey-name">📺 Su Sola</div>
-                <div class="key">NUM 1</div>
-            </div>
-            <div class="hotkey-item">
-                <div class="hotkey-name">📰 Noticia Grande</div>
-                <div class="key">NUM 2</div>
-            </div>
-            <div class="hotkey-item">
-                <div class="hotkey-name">📋 Noticia Chica</div>
-                <div class="key">NUM 3</div>
+
+            <!-- Columna Derecha: Sonidos -->
+            <div class="column">
+                <div class="section-title">
+                    🔊 Sonidos
+                </div>
+                <div class="hotkey-item">
+                    <div class="hotkey-name">🎵 Chan Chan</div>
+                    <div class="key">4</div>
+                </div>
+                <div class="hotkey-item">
+                    <div class="hotkey-name">🏮 Vidrio</div>
+                    <div class="key">5</div>
+                </div>
+                <div class="hotkey-item">
+                    <div class="hotkey-name">🗞️ Noticias</div>
+                    <div class="key">7</div>
+                </div>
+                <div class="hotkey-item">
+                    <div class="hotkey-name">🎭 Caricaturas</div>
+                    <div class="key">8</div>
+                </div>
+                <div class="hotkey-item">
+                    <div class="hotkey-name">👏 Aplausos</div>
+                    <div class="key">9</div>
+                </div>
             </div>
         </div>
 
@@ -109,38 +148,11 @@
                 📝 Timestamps
             </div>
             <div class="hotkey-item">
-                <div class="hotkey-name">Marcar Momento</div>
-                <div class="key">Shift + T</div>
+                <div class="hotkey-name">⏱️ Marcar Momento</div>
+                <div class="key">-</div>
             </div>
             <div class="status" id="streamStatus">
                 ⚫ Offline
-            </div>
-        </div>
-
-        <!-- Sección de Sonidos -->
-        <div class="section">
-            <div class="section-title">
-                🔊 Sonidos
-            </div>
-            <div class="hotkey-item">
-                <div class="hotkey-name">🗞️ Noticias</div>
-                <div class="key">NUM 7</div>
-            </div>
-            <div class="hotkey-item">
-                <div class="hotkey-name">🎭 Caricaturas</div>
-                <div class="key">NUM 8</div>
-            </div>
-            <div class="hotkey-item">
-                <div class="hotkey-name">👏 Aplausos</div>
-                <div class="key">NUM 9</div>
-            </div>
-            <div class="hotkey-item">
-                <div class="hotkey-name">🏮 Vidrio</div>
-                <div class="key">NUM 5</div>
-            </div>
-            <div class="hotkey-item">
-                <div class="hotkey-name">🎵 Chan Chan</div>
-                <div class="key">NUM 4</div>
             </div>
         </div>
     </div>
@@ -156,13 +168,13 @@
             }, 200);
         }
 
-        // Simular cambios de estado (en producción esto se conectaría con OBS)
+        // Simular cambios de estado
         let isStreaming = false;
         const streamStatus = document.getElementById('streamStatus');
         
         setInterval(() => {
             const hotkeyItems = document.querySelectorAll('.hotkey-item');
-            if(Math.random() < 0.1) { // 10% de probabilidad de activar una hotkey aleatoria
+            if(Math.random() < 0.1) {
                 const randomHotkey = hotkeyItems[Math.floor(Math.random() * hotkeyItems.length)];
                 activateHotkey(randomHotkey);
             }
